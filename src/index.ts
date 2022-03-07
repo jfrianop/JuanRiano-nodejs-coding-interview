@@ -1,8 +1,9 @@
 import 'reflect-metadata'
-require('dotenv').config()
 
 import { createExpressServer } from 'routing-controllers'
 import { db } from './memory-database'
+require('dotenv').config()
+
 const port = process.env.PORT
 
 const app = createExpressServer({
@@ -14,10 +15,13 @@ const app = createExpressServer({
 })
 
 // Connect to In-Memory DB
-;async () => await db({ test: false })
+const initializeDataBase = async () => await db({ test: false })
+
+
 
 app.listen(port, () => {
     console.log(`[Live Coding Challenge] Running at http://localhost:${port}`)
+    initializeDataBase()
 })
 
 export default app
